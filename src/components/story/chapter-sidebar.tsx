@@ -54,7 +54,7 @@ export function ChapterSidebar({
         </div>
         <Button 
           className="w-full"
-          onClick={() => addChapter(story.id, "")}
+          onClick={() => addChapter(story.id)}
         >
           <Plus className="mr-2 h-4 w-4" />
           Add Chapter

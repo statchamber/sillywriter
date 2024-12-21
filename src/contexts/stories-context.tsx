@@ -11,7 +11,7 @@ interface StoriesContextType {
   addStory: (title: string) => void
   updateStory: (storyId: string, updates: Partial<Story>) => void
   deleteStory: (id: string) => void
-  addChapter: (storyId: string, title: string) => void
+  addChapter: (storyId: string) => void
   updateChapter: (storyId: string, chapterId: string, updates: Partial<Chapter>) => void
   deleteChapter: (storyId: string, chapterId: string) => void
   addCharacter: (storyId: string, name: string, description: string, aiGenerated?: boolean) => void
@@ -68,7 +68,7 @@ export function StoriesProvider({ children }: { children: React.ReactNode }) {
     if (currentStory?.id === id) setCurrentStory(null)
   }
 
-  const addChapter = (storyId: string, title: string) => {
+  const addChapter = (storyId: string) => {
     const story = stories.find(s => s.id === storyId)
     const chapterNumber = story?.chapters.length ? story.chapters.length + 1 : 1
     const newChapter: Chapter = {
