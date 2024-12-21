@@ -135,6 +135,8 @@ function dispatch(action: Action) {
 
 type Toast = Omit<ToasterToast, "id">
 
+const genId = () => Math.random().toString(36).substring(2, 9)
+
 function toast({ ...props }: Toast) {
   const id = genId()
 

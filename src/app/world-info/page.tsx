@@ -82,22 +82,46 @@ export default function WorldInfoPage() {
           />
         </TabsContent>
         <TabsContent value="location" className="mt-6">
-          <WorldInfoList category="location" searchQuery={searchQuery} />
+          <WorldInfoList 
+            category="location" 
+            searchQuery={searchQuery} 
+            collectionId={selectedCollection}
+          />
         </TabsContent>
         <TabsContent value="object" className="mt-6">
-          <WorldInfoList category="object" searchQuery={searchQuery} />
+          <WorldInfoList 
+            category="object" 
+            searchQuery={searchQuery} 
+            collectionId={selectedCollection}
+          />
         </TabsContent>
         <TabsContent value="lore" className="mt-6">
-          <WorldInfoList category="lore" searchQuery={searchQuery} />
+          <WorldInfoList 
+            category="lore" 
+            searchQuery={searchQuery} 
+            collectionId={selectedCollection}
+          />
         </TabsContent>
         <TabsContent value="subplot" className="mt-6">
-          <WorldInfoList category="subplot" searchQuery={searchQuery} />
+          <WorldInfoList 
+            category="subplot" 
+            searchQuery={searchQuery} 
+            collectionId={selectedCollection}
+          />
         </TabsContent>
         <TabsContent value="other" className="mt-6">
-          <WorldInfoList category="other" searchQuery={searchQuery} />
+          <WorldInfoList 
+            category="other" 
+            searchQuery={searchQuery} 
+            collectionId={selectedCollection}
+          />
         </TabsContent>
         <TabsContent value="global" className="mt-6">
-          <WorldInfoList category="global" searchQuery={searchQuery} />
+          <WorldInfoList 
+            category="global" 
+            searchQuery={searchQuery} 
+            collectionId={selectedCollection}
+          />
         </TabsContent>
       </Tabs>
 

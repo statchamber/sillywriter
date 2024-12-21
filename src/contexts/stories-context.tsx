@@ -69,10 +69,12 @@ export function StoriesProvider({ children }: { children: React.ReactNode }) {
   }
 
   const addChapter = (storyId: string, title: string) => {
+    const story = stories.find(s => s.id === storyId)
     const newChapter: Chapter = {
       id: uuidv4(),
       title,
       content: "",
+      order: story?.chapters.length ?? 0,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     }
@@ -123,6 +125,7 @@ export function StoriesProvider({ children }: { children: React.ReactNode }) {
     const newCharacter: Character = {
       id: uuidv4(),
       name,
+      alias: "",
       description,
       aiGenerated,
       createdAt: new Date().toISOString(),

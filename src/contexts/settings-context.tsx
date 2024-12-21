@@ -10,6 +10,9 @@ interface TextSettings {
   fontSize: number
   fontFamily: string
   lineHeight: number
+  lineIndent: number
+  textAlign: string
+  paragraphSpacing: number
 }
 
 interface SettingsContextType {
@@ -30,9 +33,9 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
   const [textSettings, setTextSettings] = useState<TextSettings>(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('textSettings')
-      return saved ? JSON.parse(saved) : { fontSize: 16, fontFamily: 'geist', lineHeight: 1.6 }
+      return saved ? JSON.parse(saved) : { fontSize: 16, fontFamily: 'geist', lineHeight: 1.6, lineIndent: 20, textAlign: 'left', paragraphSpacing: 1.0 }
     }
-    return { fontSize: 16, fontFamily: 'geist', lineHeight: 1.6 }
+    return { fontSize: 16, fontFamily: 'geist', lineHeight: 1.6, lineIndent: 20, textAlign: 'left', paragraphSpacing: 1.0 }
   })
 
   const [globalSettings, setGlobalSettings] = useState<GlobalSettings>(() => {

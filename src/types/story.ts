@@ -2,11 +2,12 @@ export interface Chapter {
   id: string
   title: string
   content: string
+  order: number
+  createdAt: string
+  updatedAt: string
   chapterPlot?: string
   notes?: string
   pastEvents?: string[]
-  createdAt: string
-  updatedAt: string
 }
 
 export interface Character {
