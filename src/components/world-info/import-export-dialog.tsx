@@ -11,7 +11,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-import { WorldInfoCollection } from "@/types/world-info"
 
 interface ImportExportDialogProps {
   open: boolean

@@ -32,7 +32,7 @@ interface ChapterEditorProps {
 }
 
 export function ChapterEditor({ story, selectedChapterId }: ChapterEditorProps) {
-  const { updateChapter, updateStory } = useStories()
+  const { updateChapter } = useStories()
   const { textSettings, globalSettings, updateGlobalSettings } = useSettings()
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
@@ -233,7 +233,7 @@ export function ChapterEditor({ story, selectedChapterId }: ChapterEditorProps) 
     return () => {
       document.removeEventListener('selectionchange', handleSelectionChange)
     }
-  }, [])
+  }, [handleSelectionChange])
 
   // Add mousedown handler to start drag
   const handleMouseDown = () => {

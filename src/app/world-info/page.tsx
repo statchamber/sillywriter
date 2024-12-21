@@ -10,11 +10,9 @@ import { CreateWorldInfoDialog } from "@/components/world-info/create-world-info
 import { CreateCollectionDialog } from "@/components/world-info/create-collection-dialog"
 import { ManageCollectionsDialog } from "@/components/world-info/manage-collections-dialog"
 import { CollectionSelector } from "@/components/world-info/collection-selector"
-import { useWorldInfo } from "@/contexts/world-info-context"
 import { ImportExportDialog } from "@/components/world-info/import-export-dialog"
 
 export default function WorldInfoPage() {
-  const { collections } = useWorldInfo()
   const [searchQuery, setSearchQuery] = useState("")
   const [showCreateDialog, setShowCreateDialog] = useState(false)
   const [showCreateCollectionDialog, setShowCreateCollectionDialog] = useState(false)

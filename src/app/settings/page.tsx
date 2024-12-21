@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { TextFormatSettings } from "@/components/settings/text-format-settings"
 import { DataManagement } from "@/components/settings/data-management"

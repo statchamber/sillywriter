@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { Story } from "@/types/story"
 import { useWorldInfo } from "@/contexts/world-info-context"
 import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
@@ -27,18 +26,13 @@ import {
 } from "@/components/ui/accordion"
 import { ScrollArea } from "@/components/ui/scroll-area"
 
-interface StoryAITabProps {
-  story: Story
-  selectedChapterId?: string
-}
-
 const AI_MODELS = [
   { value: "gpt-4", label: "GPT-4" },
+  { value: "gpt-4-turbo", label: "GPT-4 Turbo" },
   { value: "gpt-3.5-turbo", label: "GPT-3.5 Turbo" },
-  { value: "claude-2", label: "Claude 2" },
 ]
 
-export function StoryAITab({ story, selectedChapterId }: StoryAITabProps) {
+export function StoryAITab() {
   const { collections = [] } = useWorldInfo()
   const [selectedCollections, setSelectedCollections] = useState<string[]>([])
   const [contextLimit, setContextLimit] = useState([200000])

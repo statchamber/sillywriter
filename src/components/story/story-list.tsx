@@ -246,7 +246,7 @@ export function StoryList({ stories }: StoryListProps) {
           <DialogHeader>
             <DialogTitle>Delete Story</DialogTitle>
             <DialogDescription>
-              This will permanently delete "{storyToDelete?.title}" and all its chapters.
+              This will permanently delete &quot;{storyToDelete?.title}&quot; and all its chapters.
               This action cannot be undone.
             </DialogDescription>
           </DialogHeader>
