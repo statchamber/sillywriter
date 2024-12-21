@@ -4,8 +4,6 @@ this is just a writing app that i made using claude to make it easier for me to 
 
 story data is stored in the browser's local storage, so it's not persistent
 
-in no way affiliated with SillyTavern
-
 ## running it
 
 ```bash
