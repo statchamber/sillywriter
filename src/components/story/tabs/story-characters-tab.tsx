@@ -185,6 +185,10 @@ export function StoryCharactersTab({ story }: StoryCharactersTabProps) {
         open={showEditDialog}
         onOpenChange={setShowEditDialog}
         onSave={handleEditCharacter}
+        storyId={story.id}
+        currentChapterId={undefined}
+        currentTitle={undefined}
+        currentContent={undefined}
       />
     </div>
   )
