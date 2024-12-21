@@ -70,9 +70,10 @@ export function StoriesProvider({ children }: { children: React.ReactNode }) {
 
   const addChapter = (storyId: string, title: string) => {
     const story = stories.find(s => s.id === storyId)
+    const chapterNumber = story?.chapters.length ? story.chapters.length + 1 : 1
     const newChapter: Chapter = {
       id: uuidv4(),
-      title,
+      title: `Chapter ${chapterNumber}`,
       content: "",
       order: story?.chapters.length ?? 0,
       createdAt: new Date().toISOString(),

@@ -26,7 +26,14 @@ export function ChapterSidebar({
   onChapterSelect 
 }: ChapterSidebarProps) {
   const [searchQuery, setSearchQuery] = useState("")
-  const { addChapter, deleteChapter } = useStories()
+  const { addChapter, deleteChapter, updateChapter } = useStories()
+
+  const handleRenameChapter = (chapterId: string, currentTitle: string) => {
+    const newTitle = prompt("Enter new chapter title:", currentTitle)
+    if (newTitle && newTitle !== currentTitle) {
+      updateChapter(story.id, chapterId, { title: newTitle })
+    }
+  }
 
   const filteredChapters = story.chapters.filter(chapter =>
     chapter.title.toLowerCase().includes(searchQuery.toLowerCase())
@@ -47,7 +54,7 @@ export function ChapterSidebar({
         </div>
         <Button 
           className="w-full"
-          onClick={() => addChapter(story.id, "New Chapter")}
+          onClick={() => addChapter(story.id, "")}
         >
           <Plus className="mr-2 h-4 w-4" />
           Add Chapter
@@ -72,7 +79,18 @@ export function ChapterSidebar({
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem 
-                  onClick={() => deleteChapter(story.id, chapter.id)}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    handleRenameChapter(chapter.id, chapter.title)
+                  }}
+                >
+                  Rename
+                </DropdownMenuItem>
+                <DropdownMenuItem 
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    deleteChapter(story.id, chapter.id)
+                  }}
                   className="text-destructive"
                 >
                   Delete
