@@ -1,6 +1,6 @@
 # sillywriter
 
-this is just a writing app with claude to make it easier for me to write stories with ai
+this is just a writing app that i made using claude to make it easier for me to write stories with ai
 
 story data is stored in the browser's local storage, so it's not persistent
 
