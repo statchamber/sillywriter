@@ -5,7 +5,6 @@ import { AlertCircle } from "lucide-react"
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -43,9 +42,9 @@ export function FirstTimeWarning() {
           </p>
           <ul className="list-disc pl-4 space-y-2 text-sm text-muted-foreground">
             <li>All your stuff is saved right here on your browser</li>
-            <li>It won't show up on other browsers</li>
-            <li>If you clear your browser data, or if the browser deletes it, it'll wipe everything</li>
-            <li>We don't store data on servers</li>
+            <li>It won&apos;t show up on other browsers</li>
+            <li>If you clear your browser data, or if the browser deletes it, it&apos;ll wipe everything</li>
+            <li>We don&apos;t store data on servers</li>
           </ul>
           <p className="font-medium text-sm text-muted-foreground">
             If you want to keep your data safe:
