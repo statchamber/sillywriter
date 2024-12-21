@@ -37,7 +37,6 @@ export function WorldInfoProvider({ children }: { children: React.ReactNode }) {
   }, [])
 
   const saveCollections = (newCollections: WorldInfoCollection[]) => {
-    console.log('Saving collections:', newCollections)
     localStorage.setItem("worldInfoCollections", JSON.stringify(newCollections))
     setCollections(newCollections)
   }

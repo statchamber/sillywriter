@@ -44,9 +44,6 @@ export function ImportExportDialog({ open, onOpenChange }: ImportExportDialogPro
         const content = e.target?.result as string
         const imported = JSON.parse(content)
         
-        console.log('Imported collections:', imported)
-        console.log('Existing collections:', collections)
-        
         if (!Array.isArray(imported)) {
           throw new Error("Invalid format: Expected an array of collections")
         }
@@ -65,20 +62,16 @@ export function ImportExportDialog({ open, onOpenChange }: ImportExportDialogPro
 
         // Create a map of existing collections for faster lookup
         const existingCollections = new Map(collections.map(c => [c.id, c]))
-        console.log('Existing collections map:', existingCollections)
 
         // Process each imported collection
         imported.forEach(collection => {
-          console.log('Processing collection:', collection.name)
           if (existingCollections.has(collection.id)) {
-            console.log('Updating existing collection:', collection.name)
             updateCollection(collection.id, {
               name: collection.name,
               description: collection.description,
               entries: collection.entries,
             })
           } else {
-            console.log('Adding new collection:', collection.name)
             addCollection(
               collection.name, 
               collection.description,

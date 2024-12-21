@@ -47,6 +47,7 @@ export function EditCharacterDialog({
     e.preventDefault()
     onSave(formData)
     onOpenChange(false)
+    window.location.reload()
   }
 
   return (
