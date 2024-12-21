@@ -2,9 +2,10 @@
 
 https://sillywriter.vercel.app/
 
-this is just a writing app that i made to make it easier for me to write stories with ai
+simple chapter-based story writing app with AI compatibility
 
-story data is stored in the browser's local storage, so it's not persistent
+> [!WARNING]  
+> story data is stored in the browser's local storage, so it's not persistent and will be lost when local storage is cleared
 
 ## running it
 

@@ -1,5 +1,7 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
-import { BookOpen, MessageSquare, Settings, Globe } from "lucide-react"
+import { BookOpen, MessageSquare, Settings, Globe, Github } from "lucide-react"
 import Link from "next/link"
 import { ModeToggle } from "@/components/mode-toggle"
 
@@ -33,6 +35,19 @@ export function MainSidebar() {
           <Link href="/settings">
             <Settings size={20} />
             Settings
+          </Link>
+        </Button>
+        
+        <div className="border-t my-4" />
+        
+        <Button variant="ghost" className="w-full justify-start gap-2" asChild>
+          <Link 
+            href="https://github.com/statchamber/sillywriter" 
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Github size={20} />
+            Source Code
           </Link>
         </Button>
       </div>

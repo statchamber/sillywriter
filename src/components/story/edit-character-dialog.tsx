@@ -5,6 +5,7 @@ import { Character } from "@/types/story"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import { useStories } from "@/contexts/stories-context"
 import {
   Dialog,
   DialogContent,
@@ -19,14 +20,23 @@ interface EditCharacterDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void
   onSave: (character: Partial<Character>) => void
+  storyId: string
+  currentChapterId?: string
+  currentTitle?: string
+  currentContent?: string
 }
 
 export function EditCharacterDialog({ 
   character, 
   open, 
   onOpenChange,
-  onSave 
+  onSave,
+  storyId,
+  currentChapterId,
+  currentTitle,
+  currentContent
 }: EditCharacterDialogProps) {
+  const { updateChapter } = useStories()
   const [formData, setFormData] = useState({
     name: "",
     alias: "",
@@ -34,7 +44,7 @@ export function EditCharacterDialog({
   })
 
   useEffect(() => {
-    if (character) {
+    if (character && open) {
       setFormData({
         name: character.name,
         alias: character.alias || "",
@@ -46,12 +56,32 @@ export function EditCharacterDialog({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     onSave(formData)
+    handleClose()
+  }
+
+  const handleClose = () => {
+    // Save current chapter if it exists
+    if (currentChapterId && storyId) {
+      updateChapter(storyId, currentChapterId, {
+        title: currentTitle || "",
+        content: currentContent || ""
+      })
+    }
+
+    // Reset form data when closing
+    setFormData({
+      name: "",
+      alias: "",
+      description: ""
+    })
     onOpenChange(false)
+    
+    // Refresh the page
     window.location.reload()
   }
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent>
         <form onSubmit={handleSubmit}>
           <DialogHeader>
@@ -79,7 +109,7 @@ export function EditCharacterDialog({
             />
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => onOpenChange(false)} type="button">
+            <Button variant="outline" onClick={handleClose} type="button">
               Cancel
             </Button>
             <Button type="submit">Save Changes</Button>
