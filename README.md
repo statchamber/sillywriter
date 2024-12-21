@@ -30,7 +30,3 @@ that's basically it. go to `localhost:3000`
 - settings, story, world info import/exporting
 - dark mode
 - and more
-
-## license
-
-do whatever you want with it tbh
