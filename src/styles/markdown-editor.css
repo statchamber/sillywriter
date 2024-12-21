@@ -1,0 +1,18 @@
+.rc-md-editor {
+  border: none !important;
+  background: transparent !important;
+}
+
+.rc-md-editor .section-container {
+  background: transparent !important;
+}
+
+.rc-md-editor textarea {
+  background: transparent !important;
+  color: inherit !important;
+  font-family: inherit !important;
+}
+
+.rc-md-editor .editor-container {
+  background: transparent !important;
+} 

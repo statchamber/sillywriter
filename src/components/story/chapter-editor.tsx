@@ -7,7 +7,7 @@ import { useSettings } from "@/contexts/settings-context"
 import { Textarea } from "@/components/ui/textarea"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Save, Download, Wand2, FileText } from "lucide-react"
+import { Save, Download, Wand2, FileText, LayoutList } from "lucide-react"
 import {
   Command,
   CommandDialog,
@@ -25,6 +25,9 @@ import { SceneBeatDialog } from "./scene-beat-dialog"
 import { FloatingEditorMenu } from "./floating-editor-menu"
 import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
+import { FormattingToolbar } from "./formatting-toolbar"
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 interface ChapterEditorProps {
   story: Story
@@ -56,6 +59,7 @@ export function ChapterEditor({ story, selectedChapterId }: ChapterEditorProps) 
   } | null>(null)
   const [isDragging, setIsDragging] = useState(false)
   const [lastSaved, setLastSaved] = useState<Date | null>(null)
+  const [showPreview, setShowPreview] = useState(false)
 
   const selectedChapter = story.chapters.find(c => c.id === selectedChapterId)
 
@@ -128,6 +132,7 @@ export function ChapterEditor({ story, selectedChapterId }: ChapterEditorProps) 
   }
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    // Handle command menu
     if (e.key === '/') {
       const textarea = e.currentTarget
       const cursorPosition = textarea.selectionStart
@@ -139,6 +144,20 @@ export function ChapterEditor({ story, selectedChapterId }: ChapterEditorProps) 
         e.preventDefault()
         setCursorPosition(cursorPosition)
         setShowCommandMenu(true)
+      }
+    }
+
+    // Handle keyboard shortcuts
+    if (e.ctrlKey || e.metaKey) {
+      switch (e.key.toLowerCase()) {
+        case 'b':
+          e.preventDefault()
+          handleFormat('**')
+          break
+        case 'i':
+          e.preventDefault()
+          handleFormat('*')
+          break
       }
     }
   }
@@ -267,10 +286,39 @@ export function ChapterEditor({ story, selectedChapterId }: ChapterEditorProps) 
     return () => clearTimeout(saveTimeout)
   }, [globalSettings.autoSave, content, title, selectedChapterId, story.id, updateChapter])
 
+  const handleFormat = (format: string) => {
+    if (!textareaRef.current) return
+    
+    const textarea = textareaRef.current
+    const start = textarea.selectionStart
+    const end = textarea.selectionEnd
+    const selectedText = content.substring(start, end)
+    
+    let newText
+    if (format === '>') {
+      // Handle quote formatting
+      newText = content.substring(0, start) + 
+        `${format} ${selectedText}` + 
+        content.substring(end)
+    } else {
+      // Handle other markdown formatting
+      newText = content.substring(0, start) + 
+        `${format}${selectedText}${format}` + 
+        content.substring(end)
+    }
+    
+    setContent(newText)
+    
+    // Restore focus and selection
+    textarea.focus()
+    const newCursorPos = start + format.length
+    textarea.setSelectionRange(newCursorPos, newCursorPos + selectedText.length)
+  }
+
   if (!selectedChapter) {
     return (
       <div className="flex-1 flex items-center justify-center text-muted-foreground">
-        Select a chapter to start writing
+        Add or select a chapter to start writing
       </div>
     )
   }
@@ -320,24 +368,53 @@ export function ChapterEditor({ story, selectedChapterId }: ChapterEditorProps) 
           </div>
         </div>
       </div>
-      <div className="flex-1 overflow-y-auto px-4 py-2">
-        <Textarea
-          ref={textareaRef}
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          onKeyDown={handleKeyDown}
-          onMouseDown={handleMouseDown}
-          onMouseUp={(e) => handleMouseUp(e.nativeEvent)}
-          onSelect={(e) => {
-            // Only handle selection events that aren't from mouse
-            if (!e.nativeEvent.type.includes('mouse')) {
-              handleSelectionChange()
-            }
-          }}
-          className="min-h-full w-full p-4 bg-background text-foreground resize-none border-none focus-visible:ring-0"
-          placeholder="Start writing, or press '/' to open the command menu."
-          style={textareaStyle}
-        />
+      <div className="shrink-0 px-4 py-2 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="flex justify-between items-center">
+          <FormattingToolbar onFormat={handleFormat} />
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setShowPreview(!showPreview)}
+            className="flex items-center gap-2 ml-2"
+          >
+            <LayoutList className="h-4 w-4" />
+            {showPreview ? "Hide Preview" : "Show Preview"}
+          </Button>
+        </div>
+      </div>
+      <div className="flex-1 overflow-y-auto">
+        <div className={`h-full ${showPreview ? 'grid grid-cols-2' : 'flex'} gap-4 p-4`}>
+          <div className={`${showPreview ? '' : 'flex-1'} min-w-0 h-full`}>
+            <Textarea
+              ref={textareaRef}
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              onKeyDown={handleKeyDown}
+              onMouseDown={handleMouseDown}
+              onMouseUp={(e) => handleMouseUp(e.nativeEvent)}
+              onSelect={(e) => {
+                if (!e.nativeEvent.type.includes('mouse')) {
+                  handleSelectionChange()
+                }
+              }}
+              className="h-full w-full p-4 bg-background text-foreground resize-none border-none focus-visible:ring-0"
+              placeholder="Start writing, or press '/' to open the command menu."
+              style={textareaStyle}
+            />
+          </div>
+          {showPreview && (
+            <div className="min-w-0 p-4 prose prose-sm dark:prose-invert overflow-y-auto border-l">
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                components={{
+                  del: ({ children }) => <del>{children}</del>,
+                }}
+              >
+                {content.replace(/(?<!_)_(?!_)/g, '\\_')}
+              </ReactMarkdown>
+            </div>
+          )}
+        </div>
       </div>
 
       <CommandDialog open={showCommandMenu} onOpenChange={setShowCommandMenu}>
