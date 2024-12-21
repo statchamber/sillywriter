@@ -343,22 +343,15 @@ export function ChapterEditor({ story, selectedChapterId }: ChapterEditorProps) 
         <DialogHeader>
           <DialogTitle className="sr-only">Command Menu</DialogTitle>
         </DialogHeader>
-        {/* @ts-expect-error - aaa*/}
         <Command>
-          {/* @ts-expect-error - aaa*/}
           <CommandInput placeholder="Type a command..." />
-          {/* @ts-expect-error - aaa*/}
           <CommandList>
-            {/* @ts-expect-error - aaa*/}
             <CommandEmpty>No results found.</CommandEmpty>
-            {/* @ts-expect-error - aaa*/}
             <CommandGroup heading="AI">
-              {/* @ts-expect-error - aaa*/}
               <CommandItem onSelect={() => handleCommand('scene-beat')}>
                 <FileText className="mr-2 h-4 w-4" />
                 Scene Beat
               </CommandItem>
-              {/* @ts-expect-error - aaa*/}
               <CommandItem onSelect={() => handleCommand('continue')}>
                 <Wand2 className="mr-2 h-4 w-4" />
                 Continue Writing from Selection
