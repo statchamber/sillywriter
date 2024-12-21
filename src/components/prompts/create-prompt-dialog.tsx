@@ -22,7 +22,7 @@ interface CreatePromptDialogProps {
 export function CreatePromptDialog({ open, onOpenChange, onSubmit }: CreatePromptDialogProps) {
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
-  const [messages, setMessages] = useState([
+  const [messages, setMessages] = useState<Array<{ role: "system" | "user" | "assistant", content: string }>>([
     { role: "system", content: "" },
     { role: "user", content: "" }
   ])
