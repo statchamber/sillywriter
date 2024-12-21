@@ -13,7 +13,6 @@ import {
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
 import { cn } from "@/lib/utils"
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 
 interface ChapterSidebarProps {
   story: Story
@@ -27,31 +26,11 @@ export function ChapterSidebar({
   onChapterSelect 
 }: ChapterSidebarProps) {
   const [searchQuery, setSearchQuery] = useState("")
-  const { addChapter, deleteChapter, updateStory } = useStories()
+  const { addChapter, deleteChapter } = useStories()
 
-  const filteredChapters = story.chapters
-    .filter(chapter => chapter.title.toLowerCase().includes(searchQuery.toLowerCase()))
-    .sort((a, b) => a.order - b.order)
-
-  const handleDragEnd = (result: any) => {
-    if (!result.destination) return
-
-    const items = Array.from(story.chapters)
-    const [reorderedItem] = items.splice(result.source.index, 1)
-    items.splice(result.destination.index, 0, reorderedItem)
-
-    // Update the order of all chapters
-    const updatedChapters = items.map((chapter, index) => ({
-      ...chapter,
-      order: index
-    }))
-
-    // Update the story with new chapter order
-    updateStory(story.id, {
-      ...story,
-      chapters: updatedChapters
-    })
-  }
+  const filteredChapters = story.chapters.filter(chapter =>
+    chapter.title.toLowerCase().includes(searchQuery.toLowerCase())
+  )
 
   return (
     <div className="w-80 border-r flex flex-col bg-muted/30 h-full overflow-hidden">
