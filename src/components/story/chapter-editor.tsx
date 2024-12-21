@@ -349,7 +349,7 @@ export function ChapterEditor({ story, selectedChapterId }: ChapterEditorProps) 
               </CommandItem>
               <CommandItem onSelect={() => handleCommand('continue')}>
                 <Wand2 className="mr-2 h-4 w-4" />
-                Continue Writing
+                Continue Writing from Selection
               </CommandItem>
             </CommandGroup>
           </CommandList>
