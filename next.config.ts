@@ -4,11 +4,12 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  //output: 'export',
+  output: 'export',
   images: {
     unoptimized: true,
   },
   basePath: process.env.NODE_ENV === 'production' ? '/sillywriter' : '',
+  trailingSlash: true,
 };
 
 export default nextConfig;

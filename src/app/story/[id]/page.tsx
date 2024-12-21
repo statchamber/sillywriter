@@ -7,6 +7,10 @@ import { ChapterSidebar } from "@/components/story/chapter-sidebar"
 import { ChapterEditor } from "@/components/story/chapter-editor"
 import { StoryDetails } from "@/components/story/story-details"
 
+export function generateStaticParams() {
+  return [{ id: 'default' }]
+}
+
 export default function StoryEditorPage() {
     const { id } = useParams()
     const { stories, setCurrentStory } = useStories()
