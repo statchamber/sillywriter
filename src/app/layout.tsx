@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { SettingsProvider } from "@/contexts/settings-context"
 import { StoriesProvider } from "@/contexts/stories-context"
 import { WorldInfoProvider } from "@/contexts/world-info-context"
+import { FirstTimeWarning } from "@/components/first-time-warning";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,6 +40,7 @@ export default function RootLayout({
           >
             <SettingsProvider>
               <StoriesProvider>
+                <FirstTimeWarning />
                 <div className="flex min-h-screen">
                   <aside className="w-64 border-r">
                     <MainSidebar />

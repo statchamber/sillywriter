@@ -123,7 +123,8 @@ export function ChapterEditor({ story, selectedChapterId }: ChapterEditorProps) 
     textAlign: textSettings.textAlign as 'left' | 'center' | 'right' | 'justify',
     marginLeft: 0,
     marginRight: 0,
-    marginTop: `${textSettings.paragraphSpacing}em`
+    marginTop: `${textSettings.paragraphSpacing}em`,
+    opacity: textSettings.textOpacity
   }
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {

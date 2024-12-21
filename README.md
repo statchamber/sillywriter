@@ -4,6 +4,8 @@ https://sillywriter.vercel.app/
 
 simple chapter-based story writing app with AI compatibility
 
+made to be easy to use, while all the complicated stuff happens behind the scenes
+
 > [!WARNING]  
 > story data is stored in the browser's local storage, so it's not persistent and will be lost when local storage is cleared
 

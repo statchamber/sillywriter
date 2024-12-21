@@ -68,6 +68,24 @@ export function TextFormatSettings() {
       </div>
 
       <div className="space-y-2">
+        <Label>Text Align</Label>
+        <Select 
+          value={textSettings.textAlign} 
+          onValueChange={(value) => updateTextSettings({ textAlign: value as 'left' | 'center' | 'right' | 'justify' })}
+        >
+          <SelectTrigger>
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="left">Left</SelectItem>
+            <SelectItem value="center">Center</SelectItem>
+            <SelectItem value="right">Right</SelectItem>
+            <SelectItem value="justify">Justify</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div className="space-y-2">
         <Label>Font Size ({textSettings.fontSize}px)</Label>
         <Slider 
           value={[textSettings.fontSize]}
@@ -123,21 +141,14 @@ export function TextFormatSettings() {
       </div>
 
       <div className="space-y-2">
-        <Label>Text Align</Label>
-        <Select 
-          value={textSettings.textAlign} 
-          onValueChange={(value) => updateTextSettings({ textAlign: value as 'left' | 'center' | 'right' | 'justify' })}
-        >
-          <SelectTrigger>
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="left">Left</SelectItem>
-            <SelectItem value="center">Center</SelectItem>
-            <SelectItem value="right">Right</SelectItem>
-            <SelectItem value="justify">Justify</SelectItem>
-          </SelectContent>
-        </Select>
+        <Label>Text Opacity ({Math.round(textSettings.textOpacity * 100)}%)</Label>
+        <Slider 
+          value={[textSettings.textOpacity]}
+          min={0.3}
+          max={1}
+          step={0.05}
+          onValueChange={([value]) => updateTextSettings({ textOpacity: value })}
+        />
       </div>
     </div>
   )

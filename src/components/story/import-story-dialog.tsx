@@ -28,8 +28,7 @@ export function ImportStoryDialog({ open, onOpenChange }: ImportStoryDialogProps
         importStory(text)
         onOpenChange(false)
       } catch (error) {
-        console.error('Failed to import story:', error)
-        // You might want to show an error message to the user here
+        alert('Failed to import story: ' + error)
       }
     }
   }

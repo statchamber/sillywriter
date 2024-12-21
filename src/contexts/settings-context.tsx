@@ -4,6 +4,7 @@ import { createContext, useContext, useState, useEffect } from "react"
 
 interface GlobalSettings {
   autoSave: boolean
+  hasSeenWarning: boolean
 }
 
 interface TextSettings {
@@ -14,6 +15,7 @@ interface TextSettings {
   paragraphSpacing: number
   pageWidth: number
   textAlign: 'left' | 'center' | 'right' | 'justify'
+  textOpacity: number
 }
 
 interface SettingsContextType {
@@ -25,17 +27,19 @@ interface SettingsContextType {
 }
 
 const defaultGlobalSettings: GlobalSettings = {
-  autoSave: false
+  autoSave: false,
+  hasSeenWarning: false
 }
 
 const defaultTextSettings: TextSettings = {
   fontFamily: 'system',
   fontSize: 16,
   lineHeight: 1.5,
-  lineIndent: 20,
+  lineIndent: 0,
   paragraphSpacing: 1,
   pageWidth: 800,
-  textAlign: 'left'
+  textAlign: 'left',
+  textOpacity: 1
 }
 
 export const SettingsContext = createContext<SettingsContextType | undefined>(undefined)

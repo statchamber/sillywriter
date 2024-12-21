@@ -1,9 +1,11 @@
 "use client"
 
-import { useMemo } from "react"
+import { useMemo, useState } from "react"
 import { Story } from "@/types/story"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { Input } from "@/components/ui/input"
+import { useStories } from "@/contexts/stories-context"
 
 interface StoryInformationTabProps {
   story: Story
@@ -11,6 +13,8 @@ interface StoryInformationTabProps {
 }
 
 export function StoryInformationTab({ story, selectedChapterId }: StoryInformationTabProps) {
+  const { updateStory } = useStories()
+  const [title, setTitle] = useState(story.title)
   const selectedChapter = story.chapters.find(c => c.id === selectedChapterId)
   
   const stats = useMemo(() => {
@@ -32,9 +36,33 @@ export function StoryInformationTab({ story, selectedChapterId }: StoryInformati
     }
   }, [story, selectedChapter])
 
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value)
+  }
+
+  const handleTitleBlur = () => {
+    if (title.trim() !== story.title) {
+      updateStory(story.id, { title: title.trim() })
+    }
+  }
+
   return (
     <ScrollArea className="h-full">
       <div className="space-y-4">
+        <Card>
+          <CardHeader>
+            <CardTitle>Story Title</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Input
+              value={title}
+              onChange={handleTitleChange}
+              onBlur={handleTitleBlur}
+              placeholder="Enter story title..."
+            />
+          </CardContent>
+        </Card>
+
         <Card>
           <CardHeader>
             <CardTitle>Story Statistics</CardTitle>

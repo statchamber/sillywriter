@@ -6,14 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { useStories } from "@/contexts/stories-context"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
+import { Card, CardContent } from "@/components/ui/card"
 
 interface EditCharacterDialogProps {
   character: Character | null
@@ -51,7 +44,7 @@ export function EditCharacterDialog({
         description: character.description
       })
     }
-  }, [character])
+  }, [character, open])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -60,7 +53,6 @@ export function EditCharacterDialog({
   }
 
   const handleClose = () => {
-    // Save current chapter if it exists
     if (currentChapterId && storyId) {
       updateChapter(storyId, currentChapterId, {
         title: currentTitle || "",
@@ -68,54 +60,52 @@ export function EditCharacterDialog({
       })
     }
 
-    // Reset form data when closing
     setFormData({
       name: "",
       alias: "",
       description: ""
     })
     onOpenChange(false)
-    
-    // Refresh the page
-    window.location.reload()
   }
 
+  if (!open) return null
+
   return (
-    <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent>
-        <form onSubmit={handleSubmit}>
-          <DialogHeader>
-            <DialogTitle>Edit Character</DialogTitle>
-            <DialogDescription>
-              Update character details.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="space-y-4 py-4">
-            <Input
-              placeholder="Character name"
-              value={formData.name}
-              onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-            />
-            <Input
-              placeholder="Character alias"
-              value={formData.alias}
-              onChange={(e) => setFormData(prev => ({ ...prev, alias: e.target.value }))}
-            />
-            <Textarea
-              placeholder="Character description"
-              value={formData.description}
-              onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
-              className="min-h-[100px]"
-            />
-          </div>
-          <DialogFooter>
-            <Button variant="outline" onClick={handleClose} type="button">
-              Cancel
-            </Button>
-            <Button type="submit">Save Changes</Button>
-          </DialogFooter>
-        </form>
-      </DialogContent>
-    </Dialog>
+    <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <Card className="w-full max-w-lg">
+        <CardContent className="p-6">
+          <form onSubmit={handleSubmit}>
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold">Edit Character</h3>
+              <p className="text-sm text-muted-foreground">
+                Update character details.
+              </p>
+              <Input
+                placeholder="Character name"
+                value={formData.name}
+                onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+              />
+              <Input
+                placeholder="Character alias"
+                value={formData.alias}
+                onChange={(e) => setFormData(prev => ({ ...prev, alias: e.target.value }))}
+              />
+              <Textarea
+                placeholder="Character description"
+                value={formData.description}
+                onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
+                className="min-h-[100px]"
+              />
+              <div className="flex justify-end gap-2 pt-4">
+                <Button variant="outline" onClick={handleClose} type="button">
+                  Cancel
+                </Button>
+                <Button type="submit">Save Changes</Button>
+              </div>
+            </div>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
   )
 } 

@@ -44,12 +44,10 @@ export function StoryList({ stories }: StoryListProps) {
   const [storyToDelete, setStoryToDelete] = useState<Story | null>(null)
 
   const exportToDocx = async (story: Story) => {
-    // Create a new document
     const doc = new Document({
       sections: [{
         properties: {},
         children: [
-          // Title
           new Paragraph({
             text: story.title,
             heading: HeadingLevel.TITLE,
@@ -58,7 +56,6 @@ export function StoryList({ stories }: StoryListProps) {
             }
           }),
 
-          // Story Plot if exists
           ...(story.storyPlot ? [
             new Paragraph({
               text: "Story Plot",
@@ -72,18 +69,15 @@ export function StoryList({ stories }: StoryListProps) {
             })
           ] : []),
 
-          // Chapters
           ...story.chapters
             .sort((a, b) => a.order - b.order)
             .flatMap(chapter => [
-              // Chapter Title
               new Paragraph({
                 text: chapter.title,
                 heading: HeadingLevel.HEADING_1,
                 pageBreakBefore: true,
               }),
 
-              // Chapter Plot if exists
               ...(chapter.chapterPlot ? [
                 new Paragraph({
                   text: "Chapter Plot",
@@ -97,7 +91,6 @@ export function StoryList({ stories }: StoryListProps) {
                 })
               ] : []),
 
-              // Chapter Content
               ...chapter.content.split('\n\n').map(paragraph => 
                 new Paragraph({
                   children: [
@@ -115,10 +108,8 @@ export function StoryList({ stories }: StoryListProps) {
       }]
     })
 
-    // Generate blob from document
     const blob = await Packer.toBlob(doc)
     
-    // Create download link
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
