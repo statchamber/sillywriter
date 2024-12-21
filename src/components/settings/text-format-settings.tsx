@@ -126,7 +126,7 @@ export function TextFormatSettings() {
         <Label>Text Align</Label>
         <Select 
           value={textSettings.textAlign} 
-          onValueChange={(value) => updateTextSettings({ textAlign: value })}
+          onValueChange={(value) => updateTextSettings({ textAlign: value as 'left' | 'center' | 'right' | 'justify' })}
         >
           <SelectTrigger>
             <SelectValue />

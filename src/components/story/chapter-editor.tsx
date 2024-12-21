@@ -47,6 +47,7 @@ export function ChapterEditor({ story, selectedChapterId }: ChapterEditorProps) 
       top: number
       left: number
       width: number
+      height: number
     }
     mousePosition?: {
       x: number
@@ -200,7 +201,8 @@ export function ChapterEditor({ story, selectedChapterId }: ChapterEditorProps) 
           rect: {
             top: top,
             left: left,
-            width: (end - start) * 8 // Approximate width based on character count
+            width: (end - start) * 8, // Approximate width based on character count
+            height: lineHeight
           },
           mousePosition
         })

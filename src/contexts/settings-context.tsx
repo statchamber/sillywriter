@@ -7,12 +7,13 @@ interface GlobalSettings {
 }
 
 interface TextSettings {
-  fontSize: number
   fontFamily: string
+  fontSize: number
   lineHeight: number
   lineIndent: number
-  textAlign: string
   paragraphSpacing: number
+  pageWidth: number
+  textAlign: 'left' | 'center' | 'right' | 'justify'
 }
 
 interface SettingsContextType {
@@ -27,15 +28,25 @@ const defaultGlobalSettings: GlobalSettings = {
   autoSave: false
 }
 
+const defaultTextSettings: TextSettings = {
+  fontFamily: 'system',
+  fontSize: 16,
+  lineHeight: 1.5,
+  lineIndent: 20,
+  paragraphSpacing: 1,
+  pageWidth: 800,
+  textAlign: 'left'
+}
+
 export const SettingsContext = createContext<SettingsContextType | undefined>(undefined)
 
 export function SettingsProvider({ children }: { children: React.ReactNode }) {
   const [textSettings, setTextSettings] = useState<TextSettings>(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('textSettings')
-      return saved ? JSON.parse(saved) : { fontSize: 16, fontFamily: 'geist', lineHeight: 1.6, lineIndent: 20, textAlign: 'left', paragraphSpacing: 1.0 }
+      return saved ? JSON.parse(saved) : defaultTextSettings
     }
-    return { fontSize: 16, fontFamily: 'geist', lineHeight: 1.6, lineIndent: 20, textAlign: 'left', paragraphSpacing: 1.0 }
+    return defaultTextSettings
   })
 
   const [globalSettings, setGlobalSettings] = useState<GlobalSettings>(() => {

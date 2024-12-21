@@ -1,6 +1,6 @@
 "use client"
 
-import { Story } from "@/types/story"
+import { Chapter, Story } from "@/types/story"
 import { useStories } from "@/contexts/stories-context"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
@@ -32,8 +32,8 @@ export function StoryTab({ story, selectedChapterId }: StoryTabProps) {
     updateStory(story.id, updates)
   }
 
-  const handleChapterUpdate = (updates: Partial<typeof selectedChapter>) => {
-    if (!selectedChapterId) return
+  const handleChapterUpdate = (updates: Partial<Chapter>) => {
+    if (!selectedChapterId || !selectedChapter) return
     updateChapter(story.id, selectedChapterId, updates)
   }
 

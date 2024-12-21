@@ -13,6 +13,7 @@ interface SelectionInfo {
     top: number
     left: number
     width: number
+    height: number
   }
   mousePosition?: {
     x: number
