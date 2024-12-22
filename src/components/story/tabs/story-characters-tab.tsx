@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { useStories } from "@/contexts/stories-context"
 import { EditCharacterDialog } from "@/components/story/edit-character-dialog"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 interface StoryCharactersTabProps {
   story: Story
@@ -132,53 +133,55 @@ export function StoryCharactersTab({ story }: StoryCharactersTabProps) {
         </Dialog>
       </div>
 
-      <div className="space-y-2">
-        {filteredCharacters.map((character) => (
-          <div
-            key={character.id}
-            className="p-3 rounded-lg border bg-card hover:bg-accent/50"
-          >
-            <div className="flex justify-between items-start">
-              <div>
-                <div className="font-medium">{character.name}</div>
-                {character.alias && (
-                  <div className="text-sm text-muted-foreground">
-                    {character.alias}
+      <ScrollArea className="h-[calc(100vh-200px)]">
+        <div className="space-y-2 pr-4">
+          {filteredCharacters.map((character) => (
+            <div
+              key={character.id}
+              className="p-3 rounded-lg border bg-card hover:bg-accent/50"
+            >
+              <div className="flex justify-between items-start">
+                <div>
+                  <div className="font-medium">{character.name}</div>
+                  {character.alias && (
+                    <div className="text-sm text-muted-foreground">
+                      {character.alias}
+                    </div>
+                  )}
+                  <div className="text-sm text-muted-foreground line-clamp-2 mt-1">
+                    {character.description}
                   </div>
-                )}
-                <div className="text-sm text-muted-foreground line-clamp-2 mt-1">
-                  {character.description}
                 </div>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="icon">
+                      <Pencil className="h-4 w-4" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuItem
+                      onClick={() => {
+                        setSelectedCharacter(character)
+                        setShowEditDialog(true)
+                      }}
+                    >
+                      <Pencil className="mr-2 h-4 w-4" />
+                      Edit
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => deleteCharacter(story.id, character.id)}
+                      className="text-destructive"
+                    >
+                      <Trash2 className="mr-2 h-4 w-4" />
+                      Delete
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon">
-                    <Pencil className="h-4 w-4" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuItem
-                    onClick={() => {
-                      setSelectedCharacter(character)
-                      setShowEditDialog(true)
-                    }}
-                  >
-                    <Pencil className="mr-2 h-4 w-4" />
-                    Edit
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    onClick={() => deleteCharacter(story.id, character.id)}
-                    className="text-destructive"
-                  >
-                    <Trash2 className="mr-2 h-4 w-4" />
-                    Delete
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      </ScrollArea>
 
       <EditCharacterDialog
         character={selectedCharacter}
