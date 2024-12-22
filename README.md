@@ -5,7 +5,7 @@ https://statchamber.github.io/sillywriter/ (Link 2)
 
 ## info
 
-simple but effective chapter-based story writing app with AI compatibility
+simple but effective chapter-based story writing frontend with AI compatibility
 
 made to be easy to use, while all the complicated stuff happens behind the scenes
 
