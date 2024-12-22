@@ -27,7 +27,7 @@ interface SettingsContextType {
 }
 
 const defaultGlobalSettings: GlobalSettings = {
-  autoSave: false,
+  autoSave: true,
   hasSeenWarning: false
 }
 

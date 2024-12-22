@@ -1,8 +1,9 @@
 # sillywriter
 
-https://sillywriter.vercel.app/
+https://sillywriter.vercel.app/ (Link 1)
+https://statchamber.github.io/sillywriter/ (Link 2)
 
-simple chapter-based story writing app with AI compatibility
+simple but effective chapter-based story writing app with AI compatibility
 
 made to be easy to use, while all the complicated stuff happens behind the scenes
 
@@ -32,4 +33,4 @@ that's basically it. go to `localhost:3000`
 - multiple api support
 - settings, story, world info import/exporting
 - dark mode
-- and more
+- probably more that i forgot to mention
