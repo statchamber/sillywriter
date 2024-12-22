@@ -34,6 +34,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import { Document, Packer, Paragraph, TextRun, HeadingLevel } from "docx"
+import { useRouter } from 'next/navigation'
 
 interface StoryListProps {
   stories: Story[]
@@ -42,6 +43,7 @@ interface StoryListProps {
 export function StoryList({ stories }: StoryListProps) {
   const { deleteStory, exportStory } = useStories()
   const [storyToDelete, setStoryToDelete] = useState<Story | null>(null)
+  const router = useRouter()
 
   const exportToDocx = async (story: Story) => {
     const doc = new Document({
@@ -162,6 +164,11 @@ export function StoryList({ stories }: StoryListProps) {
     }
   }
 
+  const handleEditClick = (e: React.MouseEvent, storyId: string) => {
+    e.preventDefault()
+    router.push(`/story/${storyId}`)
+  }
+
   return (
     <>
       <Table>
@@ -189,11 +196,11 @@ export function StoryList({ stories }: StoryListProps) {
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
-                    <DropdownMenuItem asChild>
-                      <Link href={`/story/${story.id}`} className="flex items-center">
+                    <DropdownMenuItem onClick={(e) => handleEditClick(e, story.id)}>
+                      <div className="flex items-center">
                         <FileEdit className="mr-2 h-4 w-4" />
                         Edit
-                      </Link>
+                      </div>
                     </DropdownMenuItem>
                     <DropdownMenuSub>
                       <DropdownMenuSubTrigger>
