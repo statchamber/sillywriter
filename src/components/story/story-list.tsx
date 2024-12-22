@@ -43,7 +43,6 @@ interface StoryListProps {
 export function StoryList({ stories, onStorySelect }: StoryListProps) {
   const { deleteStory, exportStory } = useStories()
   const [storyToDelete, setStoryToDelete] = useState<Story | null>(null)
-  const router = useRouter()
 
   const exportToDocx = async (story: Story) => {
     const doc = new Document({
