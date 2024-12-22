@@ -12,7 +12,7 @@ made to be easy to use, while all the complicated stuff happens behind the scene
 ## warning
 
 > [!WARNING]  
-> story data is stored in the browser's local storage, so it's not persistent and will be lost when local storage is cleared
+> story data is stored in the browser's local storage, so it's not persistent and will be lost when local storage is cleared. make sure to export your stories frequently.
 
 ## features
 
