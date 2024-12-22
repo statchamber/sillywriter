@@ -37,9 +37,10 @@ import { useRouter } from 'next/navigation'
 
 interface StoryListProps {
   stories: Story[]
+  onStorySelect: (storyId: string) => void
 }
 
-export function StoryList({ stories }: StoryListProps) {
+export function StoryList({ stories, onStorySelect }: StoryListProps) {
   const { deleteStory, exportStory } = useStories()
   const [storyToDelete, setStoryToDelete] = useState<Story | null>(null)
   const router = useRouter()
@@ -165,7 +166,7 @@ export function StoryList({ stories }: StoryListProps) {
 
   const handleEditClick = (e: React.MouseEvent, storyId: string) => {
     e.preventDefault()
-    router.push(`/story/${storyId}`)
+    onStorySelect(storyId)
   }
 
   return (

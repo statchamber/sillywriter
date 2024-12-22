@@ -4,8 +4,18 @@ import { Button } from "@/components/ui/button"
 import { BookOpen, MessageSquare, Settings, Globe, Github } from "lucide-react"
 import Link from "next/link"
 import { ModeToggle } from "@/components/mode-toggle"
+import { useRouter } from "next/navigation"
 
 export function MainSidebar() {
+  const router = useRouter()
+
+  const handleStoryClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    const event = new CustomEvent('navigateToStories')
+    window.dispatchEvent(event)
+    router.push('/story')
+  }
+
   return (
     <div className="h-full">
       <div className="border-b px-4 py-2 flex justify-between items-center">
@@ -14,7 +24,7 @@ export function MainSidebar() {
       </div>
       <div className="p-4 space-y-4">
         <Button variant="ghost" className="w-full justify-start gap-2" asChild>
-          <Link href="/story">
+          <Link href="/story" onClick={handleStoryClick}>
             <BookOpen size={20} />
             Story
           </Link>

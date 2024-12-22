@@ -6,6 +6,7 @@ import { useStories } from "@/contexts/stories-context"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { StoryList } from "@/components/story/story-list"
+import { StoryEditor } from "@/components/story/story-editor"
 import { CreateStoryDialog } from "@/components/story/create-story-dialog"
 import { ImportStoryDialog } from "@/components/story/import-story-dialog"
 
@@ -13,11 +14,16 @@ export default function StoryPage() {
   const [searchQuery, setSearchQuery] = useState("")
   const [showCreateDialog, setShowCreateDialog] = useState(false)
   const [showImportDialog, setShowImportDialog] = useState(false)
+  const [selectedStoryId, setSelectedStoryId] = useState<string | null>(null)
   const { stories } = useStories()
 
   const filteredStories = stories.filter(story =>
     story.title.toLowerCase().includes(searchQuery.toLowerCase())
   )
+
+  if (selectedStoryId) {
+    return <StoryEditor storyId={selectedStoryId} onClose={() => setSelectedStoryId(null)} />
+  }
 
   return (
     <div className="container p-8 max-w-5xl">
@@ -45,7 +51,7 @@ export default function StoryPage() {
         />
       </div>
 
-      <StoryList stories={filteredStories} />
+      <StoryList stories={filteredStories} onStorySelect={setSelectedStoryId} />
       
       <CreateStoryDialog 
         open={showCreateDialog} 
