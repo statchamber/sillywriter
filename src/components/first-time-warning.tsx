@@ -41,10 +41,10 @@ export function FirstTimeWarning() {
             Just so you know - sillywriter keeps everything in your local storage:
           </p>
           <ul className="list-disc pl-4 space-y-2 text-sm text-muted-foreground">
-            <li>All your stuff is saved right here on your browser</li>
+            <li>All your stories are saved right here on your browser</li>
             <li>It won&apos;t show up on other browsers</li>
             <li>If you clear your browser data, or if the browser deletes it, it&apos;ll wipe everything</li>
-            <li>We don&apos;t store data on servers</li>
+            <li>We don&apos;t store data on servers, everything is hosted on YOUR device</li>
           </ul>
           <p className="font-medium text-sm text-muted-foreground">
             If you want to keep your data safe:
